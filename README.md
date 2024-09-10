@@ -4,7 +4,8 @@
 
 In the project directory, you can run:
 
-###npm install
+### npm install
+
 Creates the needed node package from the JSON file
 
 ### `npm start`
