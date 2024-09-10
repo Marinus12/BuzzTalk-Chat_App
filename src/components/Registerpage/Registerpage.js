@@ -9,6 +9,7 @@ const RegisterPage = () => {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
+        location: '',
         password: '',
         confirmPassword: ''
     });
@@ -73,6 +74,15 @@ const RegisterPage = () => {
                 {errors.email && <p className="error">{errors.email}</p>}
 
                 <input
+                    type="text"
+                    name="location"
+                    placeholder="Location"
+                    value={formData.location}
+                    onChange={handleChange}
+                />
+                {errors.location && <p className="error">{errors.location}</p>}
+
+                <input
                     type="password"
                     name="password"
                     placeholder="Password"
@@ -90,7 +100,9 @@ const RegisterPage = () => {
                 />
                 {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
 
-                <button type="submit">Sign Up</button>
+                <Link to="chat">
+                    <button type="submit">Sign Up</button>
+                </Link>
             </form>
             <Link to="/login">
               <p className='Text'>

@@ -65,7 +65,9 @@ const LoginPage = () => {
                 />
                 {errors.password && <p className="error">{errors.password}</p>}
 
-                <button type="submit">Login</button>
+                <Link to="/chat">
+                    <button type="submit">Login</button>
+                </Link>
             </form>
             <Link to="/register">
               <p className='Text'>

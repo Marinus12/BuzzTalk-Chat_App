@@ -18,10 +18,14 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  /* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
+  grid-template-columns: repeat(2, 200px);
+  grid-template-rows: repeat(2, 200px);
+  align-items: center;
+  justify-content: center;
   gap: 20px; /* Space between circles */
   margin-bottom: 20px; /* Space between grid and the text */
-  width: 75%; /* Ensures grid takes full width of the container */
+  width: 100%; /* Ensures grid takes full width of the container */
 }
 
 /* .grid {
@@ -49,7 +53,7 @@ body {
 
 
 .image {
-  width: 90%;
+  width: 100%;
   aspect-ratio: 1; /* Ensures the circle remains a circle regardless of width */
   border-radius: 50%;
   background-color: #3498db;
