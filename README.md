@@ -4,6 +4,9 @@
 
 In the project directory, you can run:
 
+###npm install
+Creates the needed node package from the JSON file
+
 ### `npm start`
 
 Runs the app in the development mode.\
