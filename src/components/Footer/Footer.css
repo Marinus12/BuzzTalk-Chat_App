@@ -1,0 +1,17 @@
+footer {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(104, 104, 243);
+    color: rgb(8, 1, 1);
+    text-align: center;
+    padding: 1rem auto;
+  }
+
+  .footer .container {
+    background-color: rgb(104, 104, 243);
+    max-width: 100vh;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center; /* Optional: Center horizontally */
+    align-items: flex-end; /* Align items to the bottom */
+    height: auto; /* Full height of the viewport */
+  }

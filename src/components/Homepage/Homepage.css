@@ -1,0 +1,116 @@
+body {
+  background-color: azure;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  /* border-radius: 5%; */
+  /* margin: 10px 150px 0px 150px; */
+  padding: 20px;
+  /* height: auto; */
+  background-color: gray;
+}
+
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px; /* Space between circles */
+  margin-bottom: 20px; /* Space between grid and the text */
+  width: 75%; /* Ensures grid takes full width of the container */
+}
+
+/* .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 200px); Two columns
+  grid-template-rows: repeat(2, 200px); Two rows
+  gap: 20px; Space between circles
+} */
+
+
+.text {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  padding: 0 20px; /* Adds padding for better text display on smaller screens */
+}
+
+/* .text {
+  font-size: 25px;
+  color: #333;
+  text-align: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+} */
+
+
+.image {
+  width: 90%;
+  aspect-ratio: 1; /* Ensures the circle remains a circle regardless of width */
+  border-radius: 50%;
+  background-color: #3498db;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.5rem;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+  /* .image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; Makes the div a circle
+    background-color: #3498db; Circle color
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  } */
+
+
+/* Button Styling */
+.get-started-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.get-started-button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .text {
+    font-size: 1.25rem;
+  }
+
+  .get-started-button {
+    width: 100%; /* Button takes full width on smaller screens */
+    font-size: 1.25rem; /* Increase button size on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .text {
+    font-size: 1rem;
+  }
+
+  .image {
+    font-size: 1.25rem; /* Slightly smaller font for the circle text on very small screens */
+  }
+}
