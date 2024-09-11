@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import "./Loginpage.css";
 import { Link } from 'react-router-dom';
 import Footer from '../Footer/Footer';
-import axios from 'axios';
 
-const LoginPage = ({ setToken }) => {
+
+const LoginPage = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -19,41 +19,29 @@ const LoginPage = ({ setToken }) => {
         });
     };
 
-    // const validate = () => {
-    //     const errors = {};
+    const validate = () => {
+        const errors = {};
 
-    //     if (!formData.email) {
-    //         errors.email = 'Email is required';
-    //     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-    //         errors.email = 'Email is invalid';
-    //     }
-    //     if (!formData.password) errors.password = 'Password is required';
-
-    //     return errors;
-    // };
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-          const response = await axios.post('http://localhost:5000/api/login', formData);
-          setToken(response.data.token); // Save the JWT token
-        //   navigate('/chat');
-        } catch (error) {
-          setErrors({ general: 'Invalid email or password' });
+        if (!formData.email) {
+            errors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            errors.email = 'Email is invalid';
         }
-      };
+        if (!formData.password) errors.password = 'Password is required';
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     const validationErrors = validate();
-    //     setErrors(validationErrors);
+        return errors;
+    };
 
-    //     if (Object.keys(validationErrors).length === 0) {
-    //         // Handle login logic here (e.g., send data to API)
-    //         console.log(formData);
-    //     }
-    // };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const validationErrors = validate();
+        setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length === 0) {
+            // Handle login logic here (e.g., send data to API)
+            console.log(formData);
+        }
+    };
 
     return (
       <>
