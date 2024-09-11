@@ -59,6 +59,7 @@ const RegisterPage = () => {
                     type="text"
                     name="username"
                     placeholder="Username"
+                    required="True"
                     value={formData.username}
                     onChange={handleChange}
                 />
@@ -100,7 +101,7 @@ const RegisterPage = () => {
                 />
                 {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
 
-                <Link to="chat">
+                <Link to="/chat">
                     <button type="submit">Sign Up</button>
                 </Link>
             </form>
