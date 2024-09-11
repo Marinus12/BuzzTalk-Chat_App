@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import "./Registerpage.css";
 import Footer from '../Footer/Footer';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
-
-const RegisterPage = () => {
+const RegisterPage = ({ setToken }) => {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -39,14 +39,16 @@ const RegisterPage = () => {
         return errors;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const validationErrors = validate();
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
             // Handle signup logic here (e.g., send data to API)
-            console.log(formData);
+            // console.log(formData);
+            const response = await axios.post('http://localhost:5000/api/login', formData);
+            setToken(response.data.token); // Save the JWT token
         }
     };
 

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import "./Loginpage.css";
 import { Link } from 'react-router-dom';
 import Footer from '../Footer/Footer';
+import axios from 'axios';
 
-const LoginPage = () => {
+const LoginPage = ({ setToken }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -18,29 +19,41 @@ const LoginPage = () => {
         });
     };
 
-    const validate = () => {
-        const errors = {};
+    // const validate = () => {
+    //     const errors = {};
 
-        if (!formData.email) {
-            errors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            errors.email = 'Email is invalid';
-        }
-        if (!formData.password) errors.password = 'Password is required';
+    //     if (!formData.email) {
+    //         errors.email = 'Email is required';
+    //     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    //         errors.email = 'Email is invalid';
+    //     }
+    //     if (!formData.password) errors.password = 'Password is required';
 
-        return errors;
-    };
+    //     return errors;
+    // };
 
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const validationErrors = validate();
-        setErrors(validationErrors);
-
-        if (Object.keys(validationErrors).length === 0) {
-            // Handle login logic here (e.g., send data to API)
-            console.log(formData);
+        try {
+          const response = await axios.post('http://localhost:5000/api/login', formData);
+          setToken(response.data.token); // Save the JWT token
+        //   navigate('/chat');
+        } catch (error) {
+          setErrors({ general: 'Invalid email or password' });
         }
-    };
+      };
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     const validationErrors = validate();
+    //     setErrors(validationErrors);
+
+    //     if (Object.keys(validationErrors).length === 0) {
+    //         // Handle login logic here (e.g., send data to API)
+    //         console.log(formData);
+    //     }
+    // };
 
     return (
       <>
