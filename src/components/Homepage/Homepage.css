@@ -2,6 +2,12 @@ body {
   background-color: azure;
 }
 
+p {
+  font-weight: bolder;
+  background-color: gray;
+  margin-left: 20px;
+}
+
 .image-container {
   display: flex;
   flex-direction: column;
@@ -64,6 +70,13 @@ body {
   font-size: 1.5rem;
   font-family: Arial, sans-serif;
   text-align: center;
+}
+
+#image1 {
+  background-image: url(./BuzzTalk-512x512.png);
+  background-size: contain; /* Adjust to make the image fit within the circle */
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
   /* .image {
