@@ -117,19 +117,3 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
-
-
-
-// import React from 'react';
-// import Footer from '../Footer/Footer';
-
-// function RegisterPage() {
-
-//   return (
-//     <>
-//     <Footer />
-//     </>
-//   )
-// }
-
-// export default RegisterPage;

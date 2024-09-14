@@ -2,7 +2,6 @@ import React from 'react';
 import './Homepage.css';
 import Footer from '../Footer/Footer';
 import { Link } from 'react-router-dom';
-// import logo from './BuzzTalk-512x152.png';
 
 
 function HomePage() {
