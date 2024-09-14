@@ -10,7 +10,7 @@ function HomePage() {
   return (
     <>
     <div>
-      <p>Welcome to BUZZTALK</p>
+      <p className='para'>Welcome to BUZZTALK</p>
     </div>
     <div className="image-container">
       <div className='grid'>

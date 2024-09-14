@@ -2,9 +2,10 @@ body {
   background-color: azure;
 }
 
-p {
-  font-weight: bolder;
-  background-color: gray;
+.para {
+  font-size: 150%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  /* background-color: gray; */
   margin-left: 20px;
 }
 
