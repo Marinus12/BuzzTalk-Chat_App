@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./Loginpage.css";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 
 const LoginPage = () => {
@@ -32,10 +32,12 @@ const LoginPage = () => {
         return errors;
     };
 
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
         const validationErrors = validate();
         setErrors(validationErrors);
+        navigate('/chat');
 
         if (Object.keys(validationErrors).length === 0) {
             setIsSubmitting(true);
@@ -61,6 +63,7 @@ const LoginPage = () => {
             <div className="login-container">
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit}>
+                    <label htmlFor="email">Email</label>
                     <input
                         type="email"
                         name="email"
@@ -70,6 +73,7 @@ const LoginPage = () => {
                     />
                     {errors.email && <p className="error">{errors.email}</p>}
 
+                    <label htmlFor="password">Password</label>
                     <input
                         type="password"
                         name="password"
@@ -79,14 +83,15 @@ const LoginPage = () => {
                     />
                     {errors.password && <p className="error">{errors.password}</p>}
 
-                    <Link to="/chat">
+                    {/* <Link to="/chat"> */}
                     <button
                         type="submit"
                         disabled={isFormInvalid() || isSubmitting}
+                        onClick={handleSubmit}
                     >
                         {isSubmitting ? 'Logging in...' : 'Login'}
                     </button>
-                    </Link>
+                    {/* </Link> */}
                 </form>
                 <Link to="/register">
                     <p className='Text'>

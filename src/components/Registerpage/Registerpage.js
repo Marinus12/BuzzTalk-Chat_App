@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./Registerpage.css";
 import Footer from '../Footer/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
     const [formData, setFormData] = useState({
@@ -43,14 +43,20 @@ const RegisterPage = () => {
         return errors;
     };
 
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
         const validationErrors = validate();
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
+            alert('Registration successful, Now login');
+            navigate('/login');
             // Handle signup logic here (e.g., send data to API)
             console.log(formData);
+        }
+        else {
+            alert('Please fix the errors in the form.');
         }
     };
 
@@ -132,7 +138,7 @@ const RegisterPage = () => {
                     />
                     {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
                     {/* <Link to="/login"> */}
-                        <button type="submit">Sign Up</button>
+                        <button type="submit" onClick={handleSubmit}>Sign Up</button>
                     {/* </Link> */}
                 </form>
 
