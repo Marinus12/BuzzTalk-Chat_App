@@ -59,6 +59,7 @@ const RegisterPage = () => {
             <div className="signup-container">
                 <h2>Signup</h2>
                 <form onSubmit={handleSubmit}>
+                    <label htmlFor="username">Username</label>
                     <input
                         type="text"
                         name="username"
@@ -68,6 +69,7 @@ const RegisterPage = () => {
                     />
                     {errors.username && <p className="error">{errors.username}</p>}
 
+                    <label htmlFor="email">Email</label>
                     <input
                         type="email"
                         name="email"
@@ -77,6 +79,7 @@ const RegisterPage = () => {
                     />
                     {errors.email && <p className="error">{errors.email}</p>}
 
+                    <label htmlFor="location">Location</label>
                     <input
                         type="text"
                         name="location"
@@ -109,6 +112,7 @@ const RegisterPage = () => {
                     {errors.countryCode && <p className="error">{errors.countryCode}</p>}
                     {errors.phoneNumber && <p className="error">{errors.phoneNumber}</p>}
 
+                    <label htmlFor="password">Password</label>
                     <input
                         type="password"
                         name="password"
@@ -118,6 +122,7 @@ const RegisterPage = () => {
                     />
                     {errors.password && <p className="error">{errors.password}</p>}
 
+                    <label htmlFor="confirmPassword">Confirm Password</label>
                     <input
                         type="password"
                         name="confirmPassword"
@@ -126,8 +131,9 @@ const RegisterPage = () => {
                         onChange={handleChange}
                     />
                     {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
-
-                    <button type="submit">Sign Up</button>
+                    {/* <Link to="/login"> */}
+                        <button type="submit">Sign Up</button>
+                    {/* </Link> */}
                 </form>
 
                 <Link to="/login">

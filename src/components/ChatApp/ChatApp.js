@@ -28,21 +28,43 @@ const ChatApp = ({ token }) => {
 
   const sendMessage = () => {
     if (input.trim()) {
-      axios
-        .post(
-          'http://localhost:5000/api/send-message',
-          { message: input },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((response) => {
-          setInput('');
-        });
+        axios
+          .post(
+            'http://localhost:5000/api/send-message',
+            { message: input },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((response) => {
+            setInput('');
+          })
+          .catch((error) => {
+            console.error('Error sending message:', error);
+          });
     }
-  };
+};
+
+
+  // const sendMessage = () => {
+  //   if (input.trim()) {
+  //     axios
+  //       .post(
+  //         'http://localhost:5000/api/send-message',
+  //         { message: input },
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       )
+  //       .then((response) => {
+  //         setInput('');
+  //       });
+  //   }
+  // };
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
