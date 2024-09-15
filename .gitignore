@@ -2,7 +2,6 @@
 
 # dependencies
 /node_modules
-/Backend
 /.pnp
 .pnp.js
 
@@ -27,3 +26,4 @@ yarn-error.log*
 
 
 /server
+/Backend
