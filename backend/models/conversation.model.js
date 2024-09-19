@@ -5,13 +5,13 @@ const conversationSchema = new mongoose.Schema(
         participants: [
             {
               type: mongoose.Schema.Types.ObjectId,
-              ref: "user",
+              ref: "User",
     },
         ],
     messages: [
     {
-        trype: mongoose.Schema.Types.ObjectId,
-        ref: "message",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Message",
         default:[],
     },
 
@@ -21,4 +21,5 @@ const conversationSchema = new mongoose.Schema(
 );
 
 const Conversation = mongoose.model("conversation", conversationSchema);
+
 export default Conversation;

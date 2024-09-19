@@ -3,11 +3,11 @@ import {Signup, Login, Logout} from "../controllers/auth.controller.js";
 
 const router = express.Router();
 
-router.get("/api/auth/Signup", Signup);
+router.post("/api/auth/Signup", Signup);
 
-router.get("/api/auth/Login", Login);
+router.post("/api/auth/Login", Login);
 
-router.get("/api/auth/Logout", Logout);
+router.post("/api/auth/Logout", Logout);
 
 
 
