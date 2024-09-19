@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import './ChatApp.css';
 
-const socket = io('http://localhost:5000'); // Adjust the URL to match your backend
+const socket = io('http://localhost:4000'); // Adjust the URL to match your backend
 
 const ChatApp = ({ token }) => {
   const [messages, setMessages] = useState([]);
@@ -30,7 +30,7 @@ const ChatApp = ({ token }) => {
     if (input.trim()) {
         axios
           .post(
-            'http://localhost:5000/api/send-message',
+            'http://localhost:4000/api/send-message',
             { message: input },
             {
               headers: {

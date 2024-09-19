@@ -44,6 +44,7 @@ const RegisterPage = () => {
     };
 
     const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const validationErrors = validate();
