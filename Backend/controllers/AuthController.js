@@ -1,6 +1,9 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config(); // Load environment variables
 
 // Register a new user
 export const register = async (req, res) => {
@@ -28,7 +31,7 @@ export const register = async (req, res) => {
 
     // Generate JWT token
     const payload = { userId: user._id };
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.SESSION_DURATION });
 
     res.status(201).json({ token });
   } catch (err) {
@@ -61,7 +64,7 @@ export const login = async (req, res) => {
 
     // Generate JWT token
     const payload = { userId: user._id };
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.SESSION_DURATION });
 
     res.json({ token });
   } catch (err) {
