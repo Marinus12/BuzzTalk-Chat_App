@@ -5,7 +5,8 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import authRoutes from './routes/authRoutes.js';
-import Message from './models/messageModel.js'; 
+import chatRoutes from './routes/chatRoutes.js';  // Include chat routes
+import Message from './models/messageModel.js';
 
 dotenv.config();
 
@@ -23,6 +24,9 @@ app.use(express.json());
 
 // Use the auth routes (for register, login, etc.)
 app.use('/api', authRoutes);
+
+// Use chat routes
+app.use('/api', chatRoutes);  // Add this line to include chat routes
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)

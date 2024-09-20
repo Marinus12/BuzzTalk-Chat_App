@@ -1,5 +1,6 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
+import Event from '../models/Event.js'; // Import Event model
 
 dotenv.config();
 
