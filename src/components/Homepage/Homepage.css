@@ -80,6 +80,27 @@ body {
   background-repeat: no-repeat;
 }
 
+#image2 {
+  background-image: url(../../assets/Phone.JPG);
+  background-size: contain; /* Adjust to make the image fit within the circle */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#image3 {
+  background-image: url(../../assets/Smiling3.JPG);
+  background-size: contain; /* Adjust to make the image fit within the circle */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#image4 {
+  background-image: url(../../assets/Smiling2.JPG);
+  background-size: contain; /* Adjust to make the image fit within the circle */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
   /* .image {
     width: 200px;
     height: 200px;

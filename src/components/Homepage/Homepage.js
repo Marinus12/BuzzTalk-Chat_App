@@ -14,9 +14,9 @@ function HomePage() {
     <div className="image-container">
       <div className='grid'>
         <div className="image" id='image1'></div>
-        <div className="image"></div>
-        <div className="image"></div>
-        <div className="image"></div>
+        <div className="image" id='image2'></div>
+        <div className="image" id='image3'></div>
+        <div className="image" id='image4'></div>
       </div>
       <p className="text">Enjoy the new experience of chatting with friends around your location </p>
       <Link to="/register">
