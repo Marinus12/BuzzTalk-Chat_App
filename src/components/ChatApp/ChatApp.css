@@ -1,4 +1,10 @@
-.chat-container {
+div {
+  background-color: #ece5dd;
+  height: 100vh;
+}
+
+
+/* .chat-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -83,4 +89,4 @@
 
   .chat-input button:hover {
     background-color: #064c7a;
-  }
+  } */
