@@ -2,6 +2,7 @@ import React from 'react';
 import ChatBoxReceiver from '../ChatPage/ChatBoxReceiver';
 import ChatBoxSender from '../ChatPage/ChatBoxSender';
 import "./ChatApp.css";
+import InputText from '../ChatPage/InputText';
 
 
 const ChatApp = () => {
@@ -9,7 +10,8 @@ const ChatApp = () => {
     <div className='All'>
       <h1 className='Heading'>BUZZTALK</h1>
       <ChatBoxReceiver user="Dee" avatar="https://picsum.photos/200/300" message="Hello world" />
-      <ChatBoxSender user="Evodia" avatar="https://picsum.photos/200/300?grayscale" message="How are you doing?" />
+      <ChatBoxSender user="Rhema" avatar="https://picsum.photos/200/300?grayscale" message="How are you doing?" />
+      <InputText addMessage={(message) =>console.log(message.message) } />
     </div>
   );
 }
