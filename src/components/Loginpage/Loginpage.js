@@ -10,11 +10,20 @@ const LoginPage = () => {
         return JSON.parse(localStorage.getItem('user')) || null;
     });
 
-    function handleSetUser(){
-        if (!user) return
-        localStorage.setItem("user", user)
-        setUser(user)
-        localStorage.setItem("avatar", `https://picsum.photos/id/${_.random(1, 100)}/200/300`)
+    // Function to set user and generate avatar upon login
+    function handleSetUser(loggedInUser) {
+        if (!loggedInUser) return;
+        
+        // Prevent overwriting existing user data
+        const existingUser = JSON.parse(localStorage.getItem('user'));
+        if (existingUser && existingUser.username !== loggedInUser.username) {
+            localStorage.removeItem('user');  // Clear existing user before setting new user
+        }
+
+        localStorage.setItem("user", JSON.stringify(loggedInUser));  // Store new user
+        const avatarUrl = `https://picsum.photos/id/${_.random(1, 100)}/200/300`;  // Generate random avatar
+        localStorage.setItem("avatar", avatarUrl);  // Store avatar
+        setUser(loggedInUser);  // Update state to trigger redirect
     }
 
     const [formData, setFormData] = useState({
@@ -29,7 +38,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         // Redirect to the chat page if the user is already logged in
-        if (user) {
+        if (user && user.username) {
             navigate('/chat');
         }
     }, [user, navigate]);
@@ -55,29 +64,50 @@ const LoginPage = () => {
         return errors;
     };
 
-    const handleSubmit = (e) => {
+    // Modified handleSubmit function to use fetch for API request
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         const validationErrors = validate();
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
             setIsSubmitting(true);
-            // Simulate API call
-            setTimeout(() => {
-                const loggedInUser = {
-                    username: formData.username,
-                    // You can store other relevant details here
-                };
+            
+            try {
+                const response = await fetch('http://localhost:5000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: formData.username,
+                        password: formData.password,
+                    }),
+                });
 
-                // Store the user in localStorage
-                localStorage.setItem('user', JSON.stringify(loggedInUser));
-                setUser(loggedInUser);  // Update state to trigger redirect
+                const result = await response.json();
 
-                alert('Login successful');
+                if (response.ok) {
+                    // Simulate the logged-in user data received from the server
+                    const loggedInUser = {
+                        username: formData.username,
+                        // You can add more user details from result if needed
+                    };
+
+                    // Call handleSetUser to store user and avatar in localStorage
+                    handleSetUser(loggedInUser);
+
+                    alert('Login successful');
+                    navigate('/chat');  // Navigate after successful login
+                } else {
+                    alert(result.message || 'Login failed');  // Show error from server response
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again later.');
+            } finally {
                 setIsSubmitting(false);
-                console.log(formData);  // Handle login logic here (e.g., send data to API)
-                navigate('/chat');  // Navigate after successful login
-            }, 1000);
+            }
         }
     };
 
@@ -110,6 +140,8 @@ const LoginPage = () => {
                         onChange={handleChange}
                     />
                     {errors.password && <p className="error">{errors.password}</p>}
+
+                    {errors.api && <p className="error">{errors.api}</p>} {/* Show API error if any */}
 
                     <button
                         type="submit"
