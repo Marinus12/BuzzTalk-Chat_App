@@ -4,10 +4,10 @@
     flex-grow: row;
 }
 
-p {
+.RecPara {
     padding: 10px;
     background-color: #dcf8c6;
-    border-radius: 15%;
+    border-radius: 10%;
     max-width: 60%;
 }
 

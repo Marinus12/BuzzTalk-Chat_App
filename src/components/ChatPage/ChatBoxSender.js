@@ -1,10 +1,10 @@
 import React from 'react';
 import {Avatar, Image} from 'antd';
-import './ChatBoxReceiver.css';
+import './ChatBoxSender.css';
 
-const ChatBoxReceiver = ({avatar, user, message }) => {
+const ChatBoxSender = ({avatar, user, message }) => {
   return (
-    <div className='RecvBox'>
+    <div className='SenderBox'>
       <Avatar
       size={50}
       src={<Image
@@ -19,7 +19,7 @@ const ChatBoxReceiver = ({avatar, user, message }) => {
         />}
       />
 
-      <p>
+      <p className='SendPara'>
         <strong>
           {user}
         </strong>
@@ -30,4 +30,4 @@ const ChatBoxReceiver = ({avatar, user, message }) => {
   );
 }
 
-export default ChatBoxReceiver;
+export default ChatBoxSender;

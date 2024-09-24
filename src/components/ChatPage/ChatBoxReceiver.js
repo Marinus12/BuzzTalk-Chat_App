@@ -19,7 +19,7 @@ const ChatBoxReceiver = ({avatar, user, message }) => {
         />}
       />
 
-      <p>
+      <p className='RecPara'>
         <strong>
           {user}
         </strong>
