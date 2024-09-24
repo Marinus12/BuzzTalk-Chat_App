@@ -1,10 +1,12 @@
 import React from 'react';
 import ChatBoxReceiver from '../ChatPage/ChatBoxReceiver';
+import "./ChatApp.css";
+
 
 const ChatApp = () => {
   return (
-    <div>
-      <h1>BuzzTalk</h1>
+    <div className='All'>
+      <h1 className='Heading'>BUZZTALK</h1>
       <ChatBoxReceiver user="Dee" avatar="https://picsum.photos/200/300" message="Hello world" />
     </div>
   );

@@ -1,7 +1,15 @@
-div {
+.All {
   background-color: #ece5dd;
   height: 100vh;
 }
+
+.Heading {
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 
 
 /* .chat-container {
