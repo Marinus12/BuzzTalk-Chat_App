@@ -15,6 +15,7 @@ const RegisterPage = () => {
     });
 
     const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
         setFormData({
@@ -39,34 +40,54 @@ const RegisterPage = () => {
         if (!formData.phoneNumber || formData.phoneNumber.length !== 10) {
             errors.phoneNumber = 'Phone number must be exactly 10 digits';
         }
+        if (!formData.location) errors.location = 'Location is required'; // Added location validation
 
         return errors;
     };
 
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const validationErrors = validate();
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
-            // Save user info to localStorage
-            const user = {
-                username: formData.username,
-                email: formData.email,
-                location: formData.location,
-                countryCode: formData.countryCode,
-                phoneNumber: formData.phoneNumber
-            };
+            setIsSubmitting(true);
+            // Simulate API call
+            try {
+                const response = await fetch('http://localhost:5000/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),  // Sending the whole formData
+                });
 
-            localStorage.setItem('user', JSON.stringify(user));
+                const result = await response.json();
 
-            alert('Registration successful! Now login.');
-            navigate('/login');
-            console.log(formData);  // Handle signup logic here (e.g., send data to API)
-        }
-        else {
+                if (response.ok) {
+                    // Save user info to localStorage
+                    const user = {
+                        username: formData.username,
+                        email: formData.email,
+                        location: formData.location,
+                        countryCode: formData.countryCode,
+                        phoneNumber: formData.phoneNumber
+                    };
+
+                    localStorage.setItem('user', JSON.stringify(user));
+                    alert('Registration successful! Now login.');
+                    navigate('/login');
+                } else {
+                    alert(result.message || 'Registration failed');  // Show error from server response
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again later.');
+            } finally {
+                setIsSubmitting(false);
+            }
+        } else {
             alert('Please fix the errors in the form.');
         }
     };
@@ -104,7 +125,7 @@ const RegisterPage = () => {
                         value={formData.location}
                         onChange={handleChange}
                     />
-                    {errors.location && <p className="error">{errors.location}</p>}
+                    {errors.location && <p className="error">{errors.location}</p>}  {/* Added error display */}
 
                     {/* Phone Number Field */}
                     <label htmlFor="phoneNumber">Phone Number</label>
@@ -149,7 +170,7 @@ const RegisterPage = () => {
                     />
                     {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
 
-                    <button type="submit" onClick={handleSubmit}>Sign Up</button>
+                    <button type="submit" disabled={isSubmitting}>Sign Up</button> {/* Disabled while submitting */}
                 </form>
 
                 <Link to="/login">

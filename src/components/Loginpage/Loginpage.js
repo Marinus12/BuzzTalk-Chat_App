@@ -13,7 +13,7 @@ const LoginPage = () => {
     // Function to set user and generate avatar upon login
     function handleSetUser(loggedInUser) {
         if (!loggedInUser) return;
-        
+
         // Prevent overwriting existing user data
         const existingUser = JSON.parse(localStorage.getItem('user'));
         if (existingUser && existingUser.username !== loggedInUser.username) {
@@ -73,7 +73,7 @@ const LoginPage = () => {
 
         if (Object.keys(validationErrors).length === 0) {
             setIsSubmitting(true);
-            
+
             try {
                 const response = await fetch('http://localhost:5000/login', {
                     method: 'POST',
