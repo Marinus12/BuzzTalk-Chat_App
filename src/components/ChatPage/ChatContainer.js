@@ -64,6 +64,7 @@ const ChatContainer = () => {
         localStorage.removeItem("user");
         localStorage.removeItem("avatar");
         setUser(null);
+        setAvatar(null);
     }
 
     function ChatsList() {
@@ -80,10 +81,10 @@ const ChatContainer = () => {
                 <div>
                     <div className='Header'>
                         <div className="user-info">
-                            <h4>User: {user}</h4> {/* Display user info */}
+                            <h4>User: {user}</h4>
                         </div>
                         <div className="logout-container">
-                            <h4 className='logout' onClick={logout}>Log Out</h4> {/* Move logout button to the right */}
+                            <h4 className='logout' onClick={logout}>Log Out</h4>
                         </div>
                     </div>
                     <ChatsList />
