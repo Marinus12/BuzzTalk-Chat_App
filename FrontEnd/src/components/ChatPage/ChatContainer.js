@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
 import LoginPage from '../Loginpage/Loginpage';
 import './ChatContainer.css';
@@ -8,6 +9,7 @@ import InputText from './InputText';
 
 const ChatContainer = () => {
     // Retrieve user from localStorage and parse it if it's a JSON string
+    const navigate = useNavigate();
     const storedUser = localStorage.getItem("user");
     const [user, setUser] = useState(storedUser ? JSON.parse(storedUser).username : null);
     const [chats, setChats] = useState([]);
@@ -35,11 +37,16 @@ const ChatContainer = () => {
             setChats(oldMessages);
         });
 
-        return () => {
-            socketio.off('chat');
-            socketio.off('load_old_messages');
-        };
-    }, []);
+    //     return () => {
+    //         socketio.off('chat');
+    //         socketio.off('load_old_messages');
+    //     };
+    // }, []);
+
+            return () => {
+                socketio.disconnect(); // Disconnect socket on component unmount
+            };
+        }, []);
 
     function sendChatToSocket(chatText) {
         if (socket) {
@@ -71,6 +78,7 @@ const ChatContainer = () => {
         localStorage.removeItem("user");
         localStorage.removeItem("avatar");
         setUser(null);
+        navigate('/login');
     }
 
     function ChatsList() {
