@@ -1,10 +1,24 @@
 .Header {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-between; /* This spaces out the children (User info and Logout) */
+    align-items: center;
+    padding: 10px;
+    /* background-color: #f0f0f0; */
+    border-bottom: 1px solid #ddd;
+}
+
+.user-info h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.logout-container {
+    margin-left: auto;
 }
 
 .logout {
-    color: blue;
     cursor: pointer;
+    color: red;
+    font-weight: bold;
 }

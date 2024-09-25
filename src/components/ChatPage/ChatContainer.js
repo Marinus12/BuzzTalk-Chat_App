@@ -7,8 +7,10 @@ import ChatBoxSender from './ChatBoxSender';
 import InputText from './InputText';
 
 const ChatContainer = () => {
+    // Retrieve user from localStorage and parse it if it's a JSON string
+    const storedUser = localStorage.getItem("user");
+    const [user, setUser] = useState(storedUser ? JSON.parse(storedUser).username : null);
     const [chats, setChats] = useState([]);
-    const [user, setUser] = useState(localStorage.getItem("user"));
     const [avatar, setAvatar] = useState(localStorage.getItem("avatar"));
     const [socket, setSocket] = useState(null);
 
@@ -16,7 +18,7 @@ const ChatContainer = () => {
         // Initialize socket connection
         const socketio = socketIOClient("http://localhost:5000");
 
-        // Debug connection issue
+        // Handle connection error
         socketio.on('connect_error', (err) => {
             console.error('Socket.IO connection error:', err);
         });
@@ -77,7 +79,12 @@ const ChatContainer = () => {
             {user ?
                 <div>
                     <div className='Header'>
-                        <h4 className='logout' onClick={logout}>Log Out</h4>
+                        <div className="user-info">
+                            <h4>User: {user}</h4> {/* Display user info */}
+                        </div>
+                        <div className="logout-container">
+                            <h4 className='logout' onClick={logout}>Log Out</h4> {/* Move logout button to the right */}
+                        </div>
                     </div>
                     <ChatsList />
                     <InputText addMessage={addMessage} />
