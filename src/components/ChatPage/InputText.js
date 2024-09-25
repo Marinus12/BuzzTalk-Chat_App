@@ -9,7 +9,7 @@ const InputText = ({ addMessage }) => {  // Destructure addMessage from props
     function addAMessage() {
         if (message.trim()) {  // Ensure that empty messages are not sent
             addMessage({
-                message
+                message: message // Send the message as a string
             });
             setMessage('');  // Clear the message input after sending
         }

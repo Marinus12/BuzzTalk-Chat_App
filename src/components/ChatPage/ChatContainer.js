@@ -32,10 +32,17 @@ const ChatContainer = () => {
         });
 
         // Cleanup on unmount
+
         return () => {
-            socketio.disconnect();
+            socketio.off('chat');
         };
     }, []);
+
+
+    //     return () => {
+    //         socketio.disconnect();
+    //     };
+    // }, []);
 
     function sendChatToSocket(chat) {
         if (socket) {
@@ -64,14 +71,13 @@ const ChatContainer = () => {
         localStorage.removeItem("user");
         localStorage.removeItem("avatar");
         setUser(null);
-        setAvatar(null);
     }
 
     function ChatsList() {
         return chats.map((chat, index) => (
             chat.user === user ?
-                <ChatBoxSender key={index} message={chat.message} avatar={chat.avatar} user={chat.user} /> :
-                <ChatBoxReceiver key={index} message={chat.message} avatar={chat.avatar} user={chat.user} />
+                <ChatBoxSender key={index} message={chat.message.message} avatar={chat.avatar} user={chat.user} /> :
+                <ChatBoxReceiver key={index} message={chat.message.message} avatar={chat.avatar} user={chat.user} />
         ));
     }
 

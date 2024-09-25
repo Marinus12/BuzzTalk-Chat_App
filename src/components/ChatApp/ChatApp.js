@@ -10,9 +10,6 @@ const ChatApp = () => {
   return (
     <div className='All'>
       <h1 className='Heading'>BUZZTALK</h1>
-      {/* <ChatBoxReceiver user="Dee" avatar="https://picsum.photos/200/300" message="Hello world" />
-      <ChatBoxSender user="Rhema" avatar="https://picsum.photos/200/300?grayscale" message="How are you doing?" />
-      <InputText addMessage={(message) =>console.log(message.message) } /> */}
       <ChatContainer />
     </div>
   );
