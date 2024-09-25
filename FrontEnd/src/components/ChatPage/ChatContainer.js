@@ -11,7 +11,7 @@ const ChatContainer = () => {
     const storedUser = localStorage.getItem("user");
     const [user, setUser] = useState(storedUser ? JSON.parse(storedUser).username : null);
     const [chats, setChats] = useState([]);
-    const [avatar, setAvatar] = useState(localStorage.getItem("avatar"));
+    const [avatar] = useState(localStorage.getItem("avatar"));
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
@@ -27,44 +27,44 @@ const ChatContainer = () => {
 
         // Listen for 'chat' events from the server
         socketio.on('chat', (message) => {
-            console.log('Message received from server:', message);
             setChats((prevChats) => [...prevChats, message]);
         });
 
-        // Cleanup on unmount
+        // Load old messages when the user connects
+        socketio.on('load_old_messages', (oldMessages) => {
+            setChats(oldMessages);
+        });
 
         return () => {
             socketio.off('chat');
+            socketio.off('load_old_messages');
         };
     }, []);
 
-
-    //     return () => {
-    //         socketio.disconnect();
-    //     };
-    // }, []);
-
-    function sendChatToSocket(chat) {
+    function sendChatToSocket(chatText) {
         if (socket) {
-            console.log('Sending message to server:', chat);
-            socket.emit('chat', chat, (ack) => {
+            const newChat = {
+                user,
+                message: chatText,
+                avatar
+            };
+
+            // Send the chat message to the server
+            socket.emit('chat', newChat, (ack) => {
                 if (ack) {
                     console.log('Message acknowledged by server:', ack);
                 }
             });
+
+            // Optimistically update the chat in the UI
+            setChats((prevChats) => [...prevChats, newChat]);
         } else {
             console.error('Socket is not initialized');
         }
     }
 
     function addMessage(chatText) {
-        const newChat = {
-            user,
-            message: chatText,
-            avatar
-        };
-        setChats((prevChats) => [...prevChats, newChat]);
-        sendChatToSocket(newChat);
+        sendChatToSocket(chatText);
     }
 
     function logout() {
@@ -83,7 +83,7 @@ const ChatContainer = () => {
 
     return (
         <div>
-            {user ?
+            {user ? (
                 <div>
                     <div className='Header'>
                         <div className="user-info">
@@ -96,11 +96,11 @@ const ChatContainer = () => {
                     <ChatsList />
                     <InputText addMessage={addMessage} />
                 </div>
-                :
+            ) : (
                 <LoginPage setUser={setUser} />
-            }
+            )}
         </div>
     );
-}
+};
 
 export default ChatContainer;
