@@ -1,0 +1,16 @@
+.RecvBox {
+    display: flex;
+    justify-content: flex-start;
+    flex-grow: row;
+}
+
+.RecPara {
+    padding: 10px;
+    background-color: #dcf8c6;
+    border-radius: 10%;
+    max-width: 60%;
+}
+
+p strong {
+    font-size: 13;
+}

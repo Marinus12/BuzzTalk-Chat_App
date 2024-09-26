@@ -1,0 +1,17 @@
+.SenderBox {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: row;
+}
+
+.SendPara {
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10%;
+    max-width: 60%;
+    margin-right: 10px;
+}
+
+p strong {
+    font-size: 13;
+}
