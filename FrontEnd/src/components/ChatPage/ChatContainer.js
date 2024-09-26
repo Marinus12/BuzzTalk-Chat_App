@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
 import LoginPage from '../Loginpage/Loginpage';
@@ -15,6 +15,9 @@ const ChatContainer = () => {
     const [chats, setChats] = useState([]);
     const [avatar] = useState(localStorage.getItem("avatar"));
     const [socket, setSocket] = useState(null);
+
+    // Reference for the last message element
+    const lastMessageRef = useRef(null);
 
     useEffect(() => {
         // Initialize socket connection
@@ -33,9 +36,9 @@ const ChatContainer = () => {
         });
 
         // Load old messages when the user connects
-        socketio.on('load_old_messages', (oldMessages) => {
-            setChats(oldMessages);
-        });
+        // socketio.on('load_old_messages', (oldMessages) => {
+        //     setChats(oldMessages);
+        // });
 
     //     return () => {
     //         socketio.off('chat');
@@ -47,6 +50,13 @@ const ChatContainer = () => {
                 socketio.disconnect(); // Disconnect socket on component unmount
             };
         }, []);
+
+        // Scroll to the last message when chats are updated
+        useEffect(() => {
+            if (lastMessageRef.current) {
+                lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, [chats]);
 
     function sendChatToSocket(chatText) {
         if (socket) {
@@ -81,16 +91,36 @@ const ChatContainer = () => {
         navigate('/login');
     }
 
+
+    // function ChatsList() {
+    //     return chats.map((chat, index) => {
+    //         const messageText = chat.message.message; // Access the nested 'message' field
+    //         return chat.user === user ?
+    //             <ChatBoxSender key={index} message={messageText} avatar={chat.avatar} user={chat.user} /> :
+    //             <ChatBoxReceiver key={index} message={messageText} avatar={chat.avatar} user={chat.user} />;
+    //     });
+    // }
+
     function ChatsList() {
-        return chats.map((chat, index) => (
-            chat.user === user ?
-                <ChatBoxSender key={index} message={chat.message.message} avatar={chat.avatar} user={chat.user} /> :
-                <ChatBoxReceiver key={index} message={chat.message.message} avatar={chat.avatar} user={chat.user} />
-        ));
+        return chats.map((chat, index) => {
+            const messageText = chat.message.message;
+            return (
+                <div
+                key={index}
+                ref={index === chats.length - 1 ? lastMessageRef : null} // Set ref for the last message
+                >
+                    {chat.user === user ? (
+                        <ChatBoxSender  message={messageText} avatar={chat.avatar} user={chat.user} />
+                    ) : (
+                        <ChatBoxReceiver  message={messageText} avatar={chat.avatar} user={chat.user} />
+                    )}
+                </div>
+            );
+        });
     }
 
     return (
-        <div>
+        <div className="chat-container">
             {user ? (
                 <div>
                     <div className='Header'>
@@ -101,8 +131,12 @@ const ChatContainer = () => {
                             <h4 className='logout' onClick={logout}>Log Out</h4>
                         </div>
                     </div>
-                    <ChatsList />
-                    <InputText addMessage={addMessage} />
+                    <div className="chat-content">
+                        <ChatsList />
+                    </div>
+                    <div className="input-container">
+                        <InputText addMessage={addMessage} />
+                    </div>
                 </div>
             ) : (
                 <LoginPage setUser={setUser} />
@@ -110,5 +144,6 @@ const ChatContainer = () => {
         </div>
     );
 };
+
 
 export default ChatContainer;

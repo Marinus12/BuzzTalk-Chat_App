@@ -22,3 +22,28 @@
     color: red;
     font-weight: bold;
 }
+
+/* Container to hold the chat and input components */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height of the viewport */
+}
+
+/* Ensures chat messages take up all available space, so input stays at the bottom */
+.chat-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-bottom: 80px; /* Adjust padding for the input box space */
+}
+
+/* Input box fixed to the bottom */
+.input-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+}

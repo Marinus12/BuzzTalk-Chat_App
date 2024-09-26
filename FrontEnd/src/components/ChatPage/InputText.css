@@ -12,14 +12,14 @@ button {
 
 textarea {
     width: 60%;                 /* Fine as percentage */
-    height: 100px;               /* Add unit (px) */
+    height: 50px;               /* Add unit (px) */
     border-radius: 10px;        /* Add unit (px) */
     border-width: 0;
     padding: 10px;              /* Add unit (px) */
     font-size: 18px;            /* Add unit (px) */
     box-sizing: border-box;     /* Optional: ensures padding doesn't affect width */
     min-width: 300px;
-    min-height: 50px;
+    min-height: 40px;
 }
 
 .textContainer {
