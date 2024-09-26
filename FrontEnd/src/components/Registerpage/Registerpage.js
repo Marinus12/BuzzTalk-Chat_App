@@ -37,8 +37,8 @@ const RegisterPage = () => {
         if (formData.password.length < 6) errors.password = 'Password must be at least 6 characters';
         if (formData.password !== formData.confirmPassword) errors.confirmPassword = 'Passwords do not match';
         if (!formData.countryCode) errors.countryCode = 'Country code is required';
-        if (!formData.phoneNumber || formData.phoneNumber.length !== 10) {
-            errors.phoneNumber = 'Phone number must be exactly 10 digits';
+        if (!formData.phoneNumber || formData.phoneNumber.length < 7) {
+            errors.phoneNumber = 'Phone number must be greater than 7 digits';
         }
         if (!formData.location) errors.location = 'Location is required'; // Added location validation
 
