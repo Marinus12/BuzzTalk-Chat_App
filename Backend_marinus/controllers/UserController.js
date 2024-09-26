@@ -34,11 +34,24 @@ export const getUserById = async (req, res) => {
 // Create a new user
 export const createUser = async (req, res) => {
   const { name, email, password, location } = req.body;
+
   try {
-    let user = new User({ name, email, password, location });
+    // Check if email already exists
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ message: 'Email already registered' });
+    }
+
+    // Create new user
+    user = new User({ name, email, password, location });
     await user.save();
+
     res.status(201).json(user);
   } catch (err) {
+    if (err.code === 11000) {
+      // Handle duplicate key error
+      return res.status(400).json({ message: 'Email already registered' });
+    }
     console.error(err.message);
     res.status(500).send('Server error');
   }
