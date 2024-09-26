@@ -187,19 +187,48 @@ Content-Type: application/json
 
 \`\`\`
 BuzzTalk/
-├── controllers/
-│   └── UserController.js         # Handles user-related logic
-├── middleware/
-│   └── auth.js                   # JWT authentication middleware
-├── models/
-│   ├── User.js                   # User model schema
-│   └── messageModel.js           # Message model schema
-├── routes/
-│   ├── authRoutes.js             # Routes for user registration and login
-│   └── chatRoutes.js             # Routes for chat functionalities
-├── server.js                     # Main server file
-├── .env                          # Environment configuration
-└── package.json                  # Node.js dependencies and scripts
+├── FrontEnd/
+│   ├── public/
+│   │   ├── index.html
+│   │   └── style.css
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ChatRoom.js
+│   │   │   ├── Message.js
+│   │   │   └── UserList.js
+│   │   ├── context/
+│   │   │   └── AuthContext.js
+│   │   ├── services/
+│   │   │   └── api.js
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── package.json
+│   └── README.md
+├── BackEnd/
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── chatController.js
+│   │   ├── messageController.js
+│   │   └── userController.js
+│   ├── middleware/
+│   │   └── auth.js
+│   ├── models/
+│   │   ├── messageModel.js
+│   │   ├── roomModel.js
+│   │   └── userModel.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── chatRoutes.js
+│   │   ├── messageRoutes.js
+│   │   └── roomRoutes.js
+│   ├── utils/
+│   │   └── permissions.js
+│   ├── .env
+│   ├── server.js
+│   ├── package.json
+│   └── README.md
+└── README.md
+
 \`\`\`
 
 ---
