@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 // Room Schema
 const RoomSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: true },
   description: { type: String },
   type: { type: String, enum: ['public', 'private'], required: true },
   createdBy: { type: String, required: true },

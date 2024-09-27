@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 // Get all users
 export const getAllUsers = async (req, res) => {
@@ -62,7 +63,6 @@ export const updateUser = async (req, res) => {
   const { id } = req.params;
   const { name, email, password, location } = req.body;
 
-  // Validate ObjectId
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: 'Invalid ID format' });
   }
@@ -73,10 +73,16 @@ export const updateUser = async (req, res) => {
 
     user.name = name || user.name;
     user.email = email || user.email;
-    user.password = password || user.password;
-    user.location = location || user.location;
 
+    if (password) {
+      // Hash new password before saving
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+    }
+
+    user.location = location || user.location;
     await user.save();
+
     res.json(user);
   } catch (err) {
     console.error(err.message);

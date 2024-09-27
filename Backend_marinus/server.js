@@ -1,3 +1,4 @@
+export { app };
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
@@ -7,7 +8,7 @@ import jwt from 'jsonwebtoken';
 import authRoutes from './routes/authRoutes.js';
 import chatRoutes from './routes/chatRoutes.js';
 import roomRoutes from './routes/roomRoutes.js';
-import Message from './models/messageModel.js';
+import messageController from './controllers/MessageController.js';  // Import the message controller
 
 dotenv.config();
 
@@ -25,7 +26,6 @@ app.use(express.json());
 
 // Use the auth routes (for register, login, etc.)
 app.use('/api', authRoutes);
-
 app.use('/api/rooms', roomRoutes);
 
 // Use chat routes
@@ -49,7 +49,7 @@ io.use((socket, next) => {
   });
 });
 
-// Socket.io Event Handling (Enhanced for message broadcasting and chat history)
+// Socket.io Event Handling
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.user.userId} (ID: ${socket.id})`);
 
@@ -67,26 +67,12 @@ io.on('connection', (socket) => {
 
   // Private message handling
   socket.on('privateMessage', async ({ roomId, message }) => {
-    const newMessage = new Message({
-      roomId,
-      sender: socket.user.userId,
-      message,
-      timestamp: new Date(),
-    });
-    await newMessage.save();
-    io.to(roomId).emit('newPrivateMessage', newMessage);
+    await messageController.savePrivateMessage(socket.user.userId, roomId, message);
   });
 
   // Group message handling with broadcast
   socket.on('groupMessage', async ({ groupId, message }) => {
-    const newMessage = new Message({
-      roomId: groupId,
-      sender: socket.user.userId,
-      message,
-      timestamp: new Date(),
-    });
-    await newMessage.save();
-    io.to(groupId).emit('newGroupMessage', newMessage); // Broadcast to the group
+    await messageController.saveGroupMessage(socket.user.userId, groupId, message);
   });
 
   socket.on('disconnect', () => {

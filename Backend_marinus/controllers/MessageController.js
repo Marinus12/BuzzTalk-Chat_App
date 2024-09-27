@@ -1,4 +1,5 @@
 import Message from '../models/Message.js';
+import { validationResult } from 'express-validator';
 
 // Get all messages
 export const getAllMessages = async (req, res) => {
@@ -26,26 +27,33 @@ export const getMessageById = async (req, res) => {
 // Create a new message
 export const createMessage = async (req, res) => {
   const { content, sender, receiver } = req.body;
+
+  // Input validation
+  if (!content || !sender || !receiver) {
+    return res.status(400).json({ message: 'Content, sender, and receiver are required' });
+  }
+
   try {
-    let message = new Message({ content, sender, receiver });
+    const message = new Message({ content, sender, receiver });
     await message.save();
     res.status(201).json(message);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).json({ error: 'Server error' });
   }
 };
 
 // Update a message by ID
 export const updateMessage = async (req, res) => {
   const { content, sender, receiver } = req.body;
+
   try {
     let message = await Message.findById(req.params.id);
     if (!message) return res.status(404).json({ message: 'Message not found' });
 
-    message.content = content || message.content;
-    message.sender = sender || message.sender;
-    message.receiver = receiver || message.receiver;
+    message.content = content !== undefined ? content : message.content;
+    message.sender = sender !== undefined ? sender : message.sender;
+    message.receiver = receiver !== undefined ? receiver : message.receiver;
 
     await message.save();
     res.json(message);
@@ -68,3 +76,13 @@ export const deleteMessage = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+const messageController = {
+  getAllMessages,
+  getMessageById,
+  createMessage,
+  updateMessage,
+  deleteMessage,
+};
+
+export default messageController;

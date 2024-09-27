@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { expect } from 'chai';
-import app from '../server.js';
+import { app } from '../server.js';
 
 describe('Auth Routes', () => {
   it('should register a new user', async () => {

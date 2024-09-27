@@ -3,13 +3,36 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
-dotenv.config(); // Load environment variables from .env file
+// Load environment variables from .env file
+dotenv.config();
+
+// Helper function for email format validation
+const validateEmail = (email) => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+};
+
+// Helper function for password complexity validation
+const validatePasswordComplexity = (password) => {
+  const complexityRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+  return complexityRegex.test(password);
+};
 
 // Register a new user
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
+    // Email format validation
+    if (!validateEmail(email)) {
+      return res.status(400).json({ message: 'Invalid email format' });
+    }
+
+    // Password complexity validation
+    if (!validatePasswordComplexity(password)) {
+      return res.status(400).json({ message: 'Password must be at least 8 characters long and include uppercase, lowercase, number, and special character' });
+    }
+
     // Check if the user already exists in the database
     let user = await User.findOne({ email });
     if (user) {
