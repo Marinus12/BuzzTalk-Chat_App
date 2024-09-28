@@ -46,10 +46,13 @@ const ChatContainer = () => {
     //     };
     // }, []);
 
-            return () => {
-                socketio.disconnect(); // Disconnect socket on component unmount
-            };
-        }, []);
+            // Clean up function to avoid multiple listeners
+
+        return () => {
+            socketio.off('chat');  // Remove the 'chat' event listener
+            socketio.disconnect(); // Properly disconnect the socket
+        };
+    }, []);
 
         // Scroll to the last message when chats are updated
         useEffect(() => {
@@ -62,7 +65,7 @@ const ChatContainer = () => {
         if (socket) {
             const newChat = {
                 user,
-                message: chatText,
+                message: chatText.message,
                 avatar
             };
 
@@ -84,6 +87,13 @@ const ChatContainer = () => {
         sendChatToSocket(chatText);
     }
 
+    // function addAMessage() {
+    //     if (message.trim()) {
+    //       addMessage(message);  // Send the message as a string, not as an object
+    //       setMessage('');       // Clear the message input after sending
+    //     }
+    //   }
+
     function logout() {
         localStorage.removeItem("user");
         localStorage.removeItem("avatar");
@@ -103,16 +113,16 @@ const ChatContainer = () => {
 
     function ChatsList() {
         return chats.map((chat, index) => {
-            const messageText = chat.message.message;
+            // const messageText = chat.message;
             return (
                 <div
                 key={index}
                 ref={index === chats.length - 1 ? lastMessageRef : null} // Set ref for the last message
                 >
                     {chat.user === user ? (
-                        <ChatBoxSender  message={messageText} avatar={chat.avatar} user={chat.user} />
+                        <ChatBoxSender  message={chat.message} avatar={chat.avatar} user={chat.user} />
                     ) : (
-                        <ChatBoxReceiver  message={messageText} avatar={chat.avatar} user={chat.user} />
+                        <ChatBoxReceiver  message={chat.message} avatar={chat.avatar} user={chat.user} />
                     )}
                 </div>
             );
