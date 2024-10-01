@@ -177,7 +177,9 @@ const RegisterPage = () => {
                     <p className='Text'>Already have an account? Login</p>
                 </Link>
             </div>
-            <Footer />
+            <div className='footer-registration'>
+                <Footer />
+            </div>
         </>
     );
 };

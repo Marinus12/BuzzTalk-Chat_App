@@ -3,7 +3,7 @@ import {Avatar, Image} from 'antd';
 import './ChatBoxSender.css';
 
 const ChatBoxSender = ({avatar, user, message }) => {
-  console.log('ChatBoxSender message:', message); // Add this to see what message is being passed
+  // console.log('ChatBoxSender message:', message); // Add this to see what message is being passed
   return (
     <div className='SenderBox'>
       <Avatar
