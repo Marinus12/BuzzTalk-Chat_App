@@ -15,6 +15,8 @@ const ChatContainer = () => {
     const [chats, setChats] = useState([]);
     const [avatar] = useState(localStorage.getItem("avatar"));
     const [socket, setSocket] = useState(null);
+    // eslint-disable-next-line no-unused-vars
+    const [message, setMessage] = useState("");
 
     // Reference for the last message element
     const lastMessageRef = useRef(null);
@@ -32,6 +34,7 @@ const ChatContainer = () => {
 
         // Listen for 'chat' events from the server
         socketio.on('chat', (message) => {
+            console.log("Received message from server:", message);
             setChats((prevChats) => [...prevChats, message]);
         });
 
@@ -83,16 +86,23 @@ const ChatContainer = () => {
         }
     }
 
-    function addMessage(chatText) {
-        sendChatToSocket(chatText);
-    }
 
-    // function addAMessage() {
-    //     if (message.trim()) {
-    //       addMessage(message);  // Send the message as a string, not as an object
-    //       setMessage('');       // Clear the message input after sending
-    //     }
-    //   }
+    function addMessage(chatText) {
+        if (typeof chatText === 'string' && chatText.trim()) {
+          const newMessage = {
+            user,
+            message: chatText, // Pass the message content as a string
+            avatar
+          };
+
+          sendChatToSocket(newMessage); // Send the structured message object to the server
+          setMessage(''); // Clear the message input after sending
+        } else {
+          console.error("Invalid message format. Please pass a string.");
+        }
+      }
+
+
 
     function logout() {
         localStorage.removeItem("user");
@@ -112,8 +122,8 @@ const ChatContainer = () => {
     // }
 
     function ChatsList() {
+        console.log("Current chats:", chats); // Log the chats array
         return chats.map((chat, index) => {
-            // const messageText = chat.message;
             return (
                 <div
                 key={index}
