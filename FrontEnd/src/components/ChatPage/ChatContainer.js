@@ -111,17 +111,9 @@ const ChatContainer = () => {
     }
 
 
-    // function ChatsList() {
-    //     return chats.map((chat, index) => {
-    //         const messageText = chat.message.message; // Access the nested 'message' field
-    //         return chat.user === user ?
-    //             <ChatBoxSender key={index} message={messageText} avatar={chat.avatar} user={chat.user} /> :
-    //             <ChatBoxReceiver key={index} message={messageText} avatar={chat.avatar} user={chat.user} />;
-    //     });
-    // }
 
     function ChatsList() {
-        console.log("Current chats:", chats); // Log the chats array
+        // console.log("Current chats:", chats); // Log the chats array
         return chats.map((chat, index) => {
             return (
                 <div
@@ -145,6 +137,9 @@ const ChatContainer = () => {
                     <div className='Header'>
                         <div className="user-info">
                             <h4>User: {user}</h4>
+                        </div>
+                        <div className='BT-title'>
+                            <h1 className='BT-text'>BUZZTALK</h1>
                         </div>
                         <div className="logout-container">
                             <h4 className='logout' onClick={logout}>Log Out</h4>
