@@ -31,6 +31,7 @@
 
 ## Technologies
 
+- **React.js**: JavaScript library to design the user interface.
 - **Node.js**: JavaScript runtime environment for building the server.
 - **Express**: Web framework for handling HTTP requests.
 - **MongoDB**: NoSQL database for storing user and chat room data.
@@ -48,6 +49,7 @@
 Ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/en/download/)
+- [Node.js](https://reactjs.org/)
 - [MongoDB](https://www.mongodb.com/try/download/community)
 - [npm](https://www.npmjs.com/)
 
@@ -253,7 +255,7 @@ This project was made possible through the efforts of the following individuals:
 
 - **Ukewuihe Marinus** - Backend Developer
 - **Tembi Engoh** - Backend Developer
-- **Azeez Olarewaji** - Frontend Developer
+- **Azeez Olarewaju** - Frontend Developer
 - **Kumah Georgina Emefa** - Frontend Developer
 
 Each contributor played an important role in bringing BuzzTalk to life. Their combined expertise and dedication ensured the smooth execution of the project.
