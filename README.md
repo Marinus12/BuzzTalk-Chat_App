@@ -49,7 +49,7 @@
 Ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/en/download/)
-- [Node.js](https://reactjs.org/)
+- [React.js](https://reactjs.org/)
 - [MongoDB](https://www.mongodb.com/try/download/community)
 - [npm](https://www.npmjs.com/)
 
