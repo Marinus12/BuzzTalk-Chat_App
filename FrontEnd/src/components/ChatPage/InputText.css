@@ -1,31 +1,63 @@
 button {
     width: 10%;                 /* This seems fine if responsive */
-    height: 50px;               /* Add unit (px) */
+    height: 50px;               /* Set button height */
     font-weight: bold;
-    border-radius: 10px;        /* Add unit (px) */
-    font-size: 18px;            /* Add unit (px) */
+    border-radius: 10px;        /* Set button border radius */
+    font-size: 18px;            /* Set button font size */
     background-color: #34b7f1;
     border-width: 0;
     color: #fff;
-    cursor: pointer;            /* Optional: Changes cursor to pointer on hover */
+    cursor: pointer;            /* Change cursor to pointer on hover */
 }
 
 textarea {
-    width: 60%;                 /* Fine as percentage */
-    height: 50px;               /* Add unit (px) */
-    border-radius: 10px;        /* Add unit (px) */
-    border-width: 10;
+    width: 60%;                 /* Default width */
+    height: 50px;               /* Set height */
+    border-radius: 10px;        /* Set border radius */
+    border-width: 1px;          /* Correct border-width unit */
     border-color: black;
-    padding: 10px;              /* Add unit (px) */
-    font-size: 18px;            /* Add unit (px) */
-    box-sizing: border-box;     /* Optional: ensures padding doesn't affect width */
-    min-width: 300px;
-    min-height: 40px;
+    padding: 10px;              /* Set padding */
+    font-size: 18px;            /* Set font size */
+    box-sizing: border-box;     /* Ensures padding doesn't affect width */
+    min-width: 300px;           /* Minimum width */
+    min-height: 40px;           /* Minimum height */
 }
 
 .textContainer {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    gap: 10px;                  /* Optional: adds spacing between flex items */
+    gap: 10px;                  /* Adds spacing between flex items */
+}
+
+/* Media Queries for responsiveness */
+@media only screen and (max-width: 768px) {  /* For tablets */
+    textarea {
+        width: 70%;             /* Adjust textarea width */
+        font-size: 16px;        /* Smaller font size */
+    }
+
+    button {
+        width: 20%;             /* Increase button width */
+        font-size: 16px;        /* Smaller font size */
+    }
+}
+
+@media only screen and (max-width: 480px) {  /* For mobile phones */
+    .textContainer {
+        flex-direction: column; /* Stack items vertically */
+        gap: 15px;              /* Increase gap for better spacing */
+    }
+
+    textarea {
+        width: 80%;             /* Increase textarea width */
+        height: 100px;          /* Increase height for easier typing */
+        font-size: 14px;        /* Smaller font size */
+    }
+
+    button {
+        width: 50%;             /* Increase button width for easier tapping */
+        height: 40px;           /* Adjust height */
+        font-size: 14px;        /* Smaller font size */
+    }
 }
