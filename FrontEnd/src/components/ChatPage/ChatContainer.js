@@ -15,6 +15,8 @@ const ChatContainer = () => {
     const [chats, setChats] = useState([]);
     const [avatar] = useState(localStorage.getItem("avatar"));
     const [socket, setSocket] = useState(null);
+    // eslint-disable-next-line no-unused-vars
+    const [message, setMessage] = useState("");
 
     // Reference for the last message element
     const lastMessageRef = useRef(null);
@@ -32,6 +34,7 @@ const ChatContainer = () => {
 
         // Listen for 'chat' events from the server
         socketio.on('chat', (message) => {
+            console.log("Received message from server:", message);
             setChats((prevChats) => [...prevChats, message]);
         });
 
@@ -46,10 +49,13 @@ const ChatContainer = () => {
     //     };
     // }, []);
 
-            return () => {
-                socketio.disconnect(); // Disconnect socket on component unmount
-            };
-        }, []);
+        // Clean up function to avoid multiple listeners
+
+        return () => {
+            socketio.off('chat');  // Remove the 'chat' event listener
+            socketio.disconnect(); // Properly disconnect the socket
+        };
+    }, []);
 
         // Scroll to the last message when chats are updated
         useEffect(() => {
@@ -62,7 +68,7 @@ const ChatContainer = () => {
         if (socket) {
             const newChat = {
                 user,
-                message: chatText,
+                message: chatText.message,
                 avatar
             };
 
@@ -80,9 +86,23 @@ const ChatContainer = () => {
         }
     }
 
+
     function addMessage(chatText) {
-        sendChatToSocket(chatText);
-    }
+        if (typeof chatText === 'string' && chatText.trim()) {
+          const newMessage = {
+            user,
+            message: chatText, // Pass the message content as a string
+            avatar
+          };
+
+          sendChatToSocket(newMessage); // Send the structured message object to the server
+          setMessage(''); // Clear the message input after sending
+        } else {
+          console.error("Invalid message format. Please pass a string.");
+        }
+      }
+
+
 
     function logout() {
         localStorage.removeItem("user");
@@ -92,27 +112,19 @@ const ChatContainer = () => {
     }
 
 
-    // function ChatsList() {
-    //     return chats.map((chat, index) => {
-    //         const messageText = chat.message.message; // Access the nested 'message' field
-    //         return chat.user === user ?
-    //             <ChatBoxSender key={index} message={messageText} avatar={chat.avatar} user={chat.user} /> :
-    //             <ChatBoxReceiver key={index} message={messageText} avatar={chat.avatar} user={chat.user} />;
-    //     });
-    // }
 
     function ChatsList() {
+        // console.log("Current chats:", chats); // Log the chats array
         return chats.map((chat, index) => {
-            const messageText = chat.message.message;
             return (
                 <div
                 key={index}
                 ref={index === chats.length - 1 ? lastMessageRef : null} // Set ref for the last message
                 >
                     {chat.user === user ? (
-                        <ChatBoxSender  message={messageText} avatar={chat.avatar} user={chat.user} />
+                        <ChatBoxSender  message={chat.message} avatar={chat.avatar} user={chat.user} />
                     ) : (
-                        <ChatBoxReceiver  message={messageText} avatar={chat.avatar} user={chat.user} />
+                        <ChatBoxReceiver  message={chat.message} avatar={chat.avatar} user={chat.user} />
                     )}
                 </div>
             );
@@ -126,6 +138,9 @@ const ChatContainer = () => {
                     <div className='Header'>
                         <div className="user-info">
                             <h4>User: {user}</h4>
+                        </div>
+                        <div className='BT-title'>
+                            <h1 className='BT-text'>BUZZTALK</h1>
                         </div>
                         <div className="logout-container">
                             <h4 className='logout' onClick={logout}>Log Out</h4>

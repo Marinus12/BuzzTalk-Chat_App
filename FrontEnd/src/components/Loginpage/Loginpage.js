@@ -157,7 +157,9 @@ const LoginPage = () => {
                     </p>
                 </Link>
             </div>
-            <Footer />
+            <div className='footer-login'>
+                <Footer />
+            </div>
         </>
     );
 };

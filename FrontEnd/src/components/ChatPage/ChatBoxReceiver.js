@@ -3,6 +3,7 @@ import {Avatar, Image} from 'antd';
 import './ChatBoxReceiver.css';
 
 const ChatBoxReceiver = ({avatar, user, message }) => {
+  // console.log('ChatBoxReceiver message:', message); // Add this to see what message is being passed
   return (
     <div className='RecvBox'>
       <Avatar

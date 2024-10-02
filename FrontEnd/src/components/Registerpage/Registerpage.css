@@ -71,8 +71,17 @@
     text-decoration: underline;
 }
 
+ /* Footer fixed to the bottom */
+ .footer-registration {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
+}
 
-/* 
+
+/*
 .signup-container, .login-container {
     width: 300px;
     margin: 100px auto;
