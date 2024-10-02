@@ -50,6 +50,7 @@ const ChatContainer = () => {
     // }, []);
 
         // Clean up function to avoid multiple listeners
+
         return () => {
             socketio.off('chat');  // Remove the 'chat' event listener
             socketio.disconnect(); // Properly disconnect the socket

@@ -32,8 +32,8 @@
     align-self: center;
 }
 
-.BT-text {
-}
+/* .BT-text {
+} */
 
 .logout-container {
     margin-left: auto; /* Push the logout to the right */
@@ -57,6 +57,7 @@
     flex-grow: 1;
     overflow-y: auto;
     padding-bottom: 80px; /* Adjust padding for the input box space */
+    margin-top: 50px; /* Add margin to ensure it starts below the header */
 }
 
 /* Input box fixed to the bottom */
@@ -75,7 +76,7 @@
 /* For tablets and smaller screens */
 @media (max-width: 768px) {
     .Header {
-        flex-direction: column; /* Stack elements vertically */
+        flex-direction: row; /* Stack elements vertically */
         align-items: flex-start;
         padding: 15px;
         padding: 5px; /* Further reduce padding for tablets */
@@ -88,7 +89,7 @@
 
     .BT-title {
         font-size: 1.2rem; /* Adjust title size */
-        margin-top: 10px;
+        margin-top: 0px;
     }
 
     .logout-container {
@@ -103,7 +104,7 @@
 /* For mobile devices */
 @media (max-width: 480px) {
     .Header {
-        flex-direction: column; /* Stack elements vertically */
+        flex-direction: row; /* Stack elements vertically */
         padding: 10px;
         text-align: center; /* Center all text */
         padding: 3px; /* Further reduce padding for small screens */
